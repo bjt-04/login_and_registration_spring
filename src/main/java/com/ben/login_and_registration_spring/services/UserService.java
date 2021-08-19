@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import com.ben.login_and_registration_spring.models.User;
 import com.ben.login_and_registration_spring.repositories.UserRepository;
 
-
-
 @Service
 public class UserService {
 	

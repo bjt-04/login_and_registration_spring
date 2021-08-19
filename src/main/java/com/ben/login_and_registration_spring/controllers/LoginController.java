@@ -46,15 +46,14 @@ public class LoginController {
     public String registerUser(@Valid @ModelAttribute("user") User user, 
     						BindingResult result, 
     						HttpSession session) {
-    	// if result has errors, return the registration page (don't worry about validations just now)
-        // else, save the user in the database, save the user id in session, and redirect them to the /home route
-//    	VALIDATE
+
+    	// validate
     	validator.validate(user, result);
     	if (result.hasErrors()) {
     		return "registrationPage.jsp";
     	}
     	User newUser = userService.registerUser(user);
-//    	putting in session  ONLY the user id
+    	// put in session  ONLY the user id
     	session.setAttribute("user_id", newUser.getId());
     	return "redirect:/home";
     }
@@ -64,14 +63,11 @@ public class LoginController {
     						@RequestParam("password") String password, 
     						Model model, HttpSession session,
     						RedirectAttributes flash) {
-        // if the user is authenticated, save their user id in session
-        // else, add error messages and return the login page
-//    	USERSERVICE HAS THE AUTHENTICATE USER!
+
     	if (userService.authenticateUser(email, password)) {
-//    		USER IS AUTHENTIC!
-//    		find this user
+    		// find this user
     		User thisUser = userService.findByEmail(email);
-//    		1. store if in session!
+    		// store if in session
     		session.setAttribute("user_id", thisUser.getId());
     		return "redirect:/home";
     	} else {
@@ -100,3 +96,13 @@ public class LoginController {
         // redirect to login page
     }
 }
+
+
+
+
+// teacher comments:
+// if result has errors, return the registration page (don't worry about validations just now)
+// 		else, save the user in the database, save the user id in session, and redirect them to the /home route
+
+// if the user is authenticated, save their user id in session
+// 		else, add error messages and return the login page
